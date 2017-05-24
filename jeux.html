@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jeux</title>
+    <link rel="stylesheet" href="jeux.css" />
+</head>
+
+<body>
+    <!--menu de deux joeur-->
+    <div class="menu">
+        <div class="menu1">
+            <div class="hPlayer1">
+                <h1>player1</h1>
+            </div>
+            <div class="prop1">
+                <div class="hp100">
+                    <h2>health point</h2>
+                    <p class="hp">100</p>
+                </div>
+                <h2>niveau d'attaque</h2>
+                <p class="attaq">10</p>
+            </div>
+
+        </div>
+
+        <div class="menu2">
+            <div class="hPlayer2">
+                <h1>player2</h1>
+            </div>
+            <div class="prop2">
+                <h2>health point2</h2>
+                <p class="hp2">100</p>
+                <h2>niveau d'attaque2</h2>
+                <p class="attaq2">10</p>
+            </div>
+        </div>
+    </div>
+    <!--fin de menu-->
+
+    <!--plyer1 -->
+    <div class="joueurs">
+        <div class="infoPlayer1">
+            <div class="player1">
+
+            </div>
+            <!-- les button de premeir jouer-->
+            <div class="buttons1">
+                <div class="button1">
+                    <button>attaquer</button>
+                </div>
+                <div class="button2">
+                    <button>attaqueS</button>
+                </div>
+            </div>
+        </div>
+        <!-- fin de button pour player1 -->
+        <div class="infoPlayer2">
+            <div class="player2">
+                <img src="http://img11.deviantart.net/1300/i/2014/254/0/2/re6___helena_costume_2___professional_render_by_allan_valentine-d60rtqo.png" atl="player2">
+            </div>
+            <!-- les button de player2-->
+            <div class="buttons2">
+                <div class="button3">
+                    <button>attaquer</button>
+                </div>
+                <div class="button4">
+                    <button>attaqueS</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        "use strict";
+        // ici les personnages
+        let player1 = {
+            hp: 100,
+            attaq: 10,
+
+        };
+        let player2 = {
+            hp: 100,
+            attaq: 10,
+
+        };
+        //recuperer les button 1 et 2
+        let btn1 = document.querySelector(".button1");
+        let btn3 = document.querySelector(".button3");
+        let btn2 = document.querySelector(".button2");
+        let btn4 = document.querySelector(".button4");
+
+        //attaquer 
+        function attaque(perso, cible) {
+            perso.hp = perso.hp + 1;
+            perso.attaq = perso.attaq - 1;
+            cible.hp = cible.hp - 1;
+        };
+
+
+        //afficher les hp de plyer1
+        function afficherHp() {
+            let pointVie = document.querySelector(".hp");
+            pointVie.innerHTML = player1.hp;
+            let attaq = document.querySelector(".attaq");
+            attaq.innerHTML = player1.attaq;
+        };
+
+        //afficher les hp de player2
+        function afficheHp2() {
+            let pointVie2 = document.querySelector(".hp2");
+            pointVie2.innerHTML = player2.hp;
+            let attaq = document.querySelector(".attaq2");
+            attaq.innerHTML = player2.attaq;
+        };
+        //plyer1 attaque spéciale player2
+        function attaqS1(perso, cible) {
+            perso.hp = perso.hp + 10;
+            perso.attaq = perso.attaq - 1;
+            cible.hp = cible.hp - 10;
+        }
+        //afficher attaq speciale de player1 vers player2
+        function afficheAttaqS1() {
+            let vie = document.querySelector(".hp");
+            vie.innerHTML = player1.hp;
+            let attaqe = document.querySelector(".attaq");
+            attaqe.innerHTML = player1.attaq;
+        }
+        //player2 attaque speciale sur player1
+        function attaqS2(cible, perso) {
+            cible.hp = cible.hp + 10;
+            cible.attaq = cible.attaq - 1;
+            perso.hp = perso.hp - 10;
+        }
+        //afficher attaque spéciale  de player2sur player1
+        function afficheAttaqS2() {
+            let numVie = document.querySelector(".hp2");
+            numVie.innerHTML = player2.hp;
+            let numAttaq = document.querySelector(".attaq2");
+            numAttaq.innerHTML = player2.attaq;
+        }
+
+        // l'evenement sur le button1 attaquer
+
+        btn1.addEventListener("click", function() {
+            attaque(player1, player2);
+            afficherHp();
+            afficheHp2();
+            gameOver();
+            player1Anim();
+
+
+        });
+        //evenement sur le button3 attaquer
+        btn3.addEventListener("click", function() {
+            attaque(player2, player1);
+            afficherHp();
+            afficheHp2();
+            gameOver2();
+
+
+        });
+        // evenement sur button2 attaque special
+        btn2.addEventListener("click", function() {
+            attaqS1(player1, player2);
+            afficheAttaqS1();
+            afficheAttaqS2();
+            gameOver();
+            player1Anim();
+        });
+        btn4.addEventListener("click", function() {
+            attaqS2(player2, player1);
+            afficheAttaqS1();
+            afficheAttaqS2();
+            gameOver2();
+        });
+        //game over button1 et button2 game over pour player1
+        function gameOver() {
+            if (player1.attaq < 0) {
+                alert("game over");
+            }
+        }
+        //game over button3 et button4 game over pour player2
+        function gameOver2() {
+            if (player2.attaq < 0) {
+                alert("gameOver");
+            }
+        }
+
+        function player1Anim() {
+            let player1 = document.querySelector(".player1");
+            let classes = player1.className;
+            player1.classList.add("player1Animation");
+            player1.addEventListener("animationend", function() {
+                player1.className = classes;
+            })
+        }
+    </script>
+
+
+</body>
+
+</html>
