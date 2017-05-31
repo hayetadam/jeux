@@ -12,7 +12,7 @@ body {
  et button2  */
 
 .player1 {
-    background: url("file:///home/hayet/Bureau/sprite/sprite1.png") no-repeat;
+    background: url("sprite/sprite1.png") no-repeat;
     background-position: 0px 0px;
     background-size: 1000% 492%;
     width: 200px;
@@ -64,7 +64,7 @@ body {
 /*animation player2*/
 
 .player2 {
-    background: url("/home/hayet/Bureau/sprite/sold.png") no-repeat;
+    background: url("sprite/sold.png") no-repeat;
     background-position: 0px 0px;
     width: 210px;
     height: 240px;
